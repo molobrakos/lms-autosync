@@ -1,0 +1,1 @@
+Automatically synchronizes Squeezebox players
