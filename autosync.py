@@ -9,6 +9,12 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def _autosync(players):
+    # mute all synced inactive players to
+    # avoid surprises when starting playing again
+    for player in [p for p in players
+                   if p.is_synced and not p.is_playing]:
+        player.mute()
+
     # if some other player is playing same content/stream,
     # then auto sync them
     for player in [p for p in players
@@ -35,7 +41,7 @@ if __name__ == '__main__':
     if not server:
         exit('Server not found')
     while True:
-        sleep(0.5)
+        sleep(1)
         _LOGGER.debug('Checking')
         server.update_players()
         _autosync(server.players)
